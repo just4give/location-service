@@ -20,15 +20,15 @@ router.get('/city/:countryCode',auth, function(req, res, next) {
 
       var countryCode = req.params.countryCode.toUpperCase();
 
-      City.find({countryCode:countryCode},{name:true},function(err, docs) {
+      City.find({countryCode:countryCode,population:{$gte:50000}},{asciiname:true,population:true},function(err, docs) {
         res.json(docs);
       });
 
 });
 router.get('/location',auth,function(req,res,next){
-  var distance = 1000 / 6371;
+  var distance = 50000 / 6371;
 
-  City.findOne({'loc': { $near: [
+  City.findOne({population:{$gte:50000},'loc': { $near: [
       req.query.lat,
       req.query.lang
     ],
