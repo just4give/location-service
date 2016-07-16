@@ -26,6 +26,7 @@ router.get('/city/:countryCode',auth, function(req, res, next) {
 
 });
 router.get('/location',auth,function(req,res,next){
+    //changes on 7/15 10PM EST
   var distance = 50000 / 6371;
 
   City.findOne({population:{$gte:50000},'loc': { $near: [
